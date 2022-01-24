@@ -29,10 +29,12 @@ RULES = {
     } 
 
 def main():
+    #parser that takes in file argument
     parse = argparse.ArgumentParser(description='Markdown to html parser')
     parse.add_argument('--file','-f',type=str,help='Path to the markdown file')
     args = parse.parse_args()
 
+    #exit if file invalid
     if not args.file or not args.file.endswith('.md'):
         print("Invalid argument passed.Exiting...")
         return 
@@ -41,6 +43,7 @@ def main():
         with open(args.file) as file:
             doc = file.read()
 
+        #substitute substrings using the RULES dictionary defined
         for key in RULES.keys():
             doc = re.sub(key,RULES[key],doc,re.M)
 
